@@ -1,0 +1,33 @@
+@keyframes slideBackground {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+.background {
+  background-image: url('https://img.freepik.com/premium-vector/smartphone-with-email-notification-icon_320857-2139.jpg?semt=ais_hybrid');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  animation: slideBackground 4s linear infinite;
+  background-position: 0 0;
+}
+
+@keyframes moveBackground {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 0% -100%;
+  }
+}
+
+.login {
+  background-image: url('https://img.freepik.com/free-vector/abstract-organic-pattern-design-background_1048-19286.jpg?semt=ais_hybrid');
+  background-size: cover;
+  background-repeat: repeat;
+  animation: moveBackground 7s infinite linear;
+}
