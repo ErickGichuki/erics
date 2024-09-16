@@ -8,7 +8,7 @@ const FAQ = () => {
     {
       question: "What is Ericks solutions?",
       answer:
-        "Farbest Designs is an e-commerce platform that offers a wide variety of clothing and home appliances products.",
+        " An e-commerce platform that offers a wide variety of clothing and home appliances products.",
     },
     {
       question: "How do I become a customer?",
