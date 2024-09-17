@@ -20,7 +20,7 @@ function Home() {
           <div className="relative max-w-md w-full md:w-1/2 lg:w-1/3 px-4 sm:px-6 lg:px-8">
             <input
               type="text"
-              placeholder="What are you looking for?"
+              placeholder="I am looking for..."
               value={searchQuery}
               onChange={handleSearch}
               className="p-3 pr-12 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
