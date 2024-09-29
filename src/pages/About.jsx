@@ -37,7 +37,7 @@ function About() {
           <div className="md:w-1/2">
             <img
               src="https://img.freepik.com/premium-photo/collection-camera-camera-sunglasses-hat-table_1086760-81866.jpg?semt=ais_hybrid"
-              alt="About Clickshop Haven"
+              alt="About erics"
               className="w-full h-auto rounded-lg shadow-lg"
             />
           </div>
@@ -47,7 +47,7 @@ function About() {
           <div className="md:w-1/2">
             <img
               src="https://img.freepik.com/free-photo/composition-with-neatly-organized-arranged-sport-items_23-2150275273.jpg?semt=ais_hybrid"
-              alt="Vision"
+              alt="mission"
               className="w-full h-auto rounded-lg shadow-lg"
             />
           </div>
