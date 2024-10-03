@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, updateDoc, doc } from "firebase/firestore"; // Added updateDoc
 import { db } from "../components/firebase";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { FaStar } from "react-icons/fa";
 
 function Products({ searchQuery = "" }) {
   const [products, setProducts] = useState([]);
@@ -29,6 +30,8 @@ function Products({ searchQuery = "" }) {
             price: data.price || 0,
             stock: data.stock || 0,
             category: data.category || "Uncategorized",
+            views: data.views || 0,
+            ratings: data.ratings || 0,
           };
         });
         setProducts(productList);
@@ -83,6 +86,42 @@ function Products({ searchQuery = "" }) {
     localStorage.setItem("cart", JSON.stringify(cart));
     setNotification(`${product.name} added to cart!`);
     setTimeout(() => setNotification(""), 3000);
+  };
+
+  // Star Rating Component
+  const StarRating = ({ productId, initialRating }) => {
+    const [rating, setRating] = useState(initialRating);
+
+    const handleRating = async (newRating) => {
+      setRating(newRating); // Update the rating locally
+
+      try {
+        // Update the rating in Firebase
+        const productRef = doc(db, "products", productId);
+        await updateDoc(productRef, { ratings: newRating });
+
+        console.log("Rating updated successfully!");
+      } catch (error) {
+        console.error("Error updating rating:", error);
+      }
+    };
+
+    return (
+      <div className="flex">
+        {[...Array(5)].map((_, index) => {
+          const starRating = index + 1;
+          return (
+            <FaStar
+              key={index}
+              className={`cursor-pointer ${
+                starRating <= rating ? "text-yellow-500" : "text-gray-300"
+              }`}
+              onClick={() => handleRating(starRating)}
+            />
+          );
+        })}
+      </div>
+    );
   };
 
   return (
@@ -164,12 +203,22 @@ function Products({ searchQuery = "" }) {
               <p className="text-gray-700 mb-2">{product.description}</p>
               <p className="text-gray-900 font-bold">Kshs {product.price}</p>
               <p className="text-gray-900">{product.stock} items remaining</p>
-              <button
-                onClick={() => addToCart(product)}
-                className="bg-blue-500 text-white py-2 px-4 rounded mt-4"
-              >
-                Add to Cart
-              </button>
+
+              {/* Flex container for button and star rating */}
+              <div className="flex items-center justify-between mt-4">
+                <button
+                  onClick={() => addToCart(product)}
+                  className="bg-blue-500 text-white py-2 px-4 rounded"
+                >
+                  Add to Cart
+                </button>
+
+                {/* Dynamic Star Rating */}
+                <StarRating
+                  productId={product.id}
+                  initialRating={product.ratings}
+                />
+              </div>
             </div>
           ))}
         </div>
@@ -199,22 +248,17 @@ function Pagination({
 
   return (
     <div className="flex justify-center mt-6">
-      <ul className="inline-flex space-x-2">
-        {pageNumbers.map((number) => (
-          <li key={number}>
-            <button
-              onClick={() => onPageChange(number)}
-              className={`px-3 py-1 rounded ${
-                currentPage === number
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-200"
-              }`}
-            >
-              {number}
-            </button>
-          </li>
-        ))}
-      </ul>
+      {pageNumbers.map((number) => (
+        <button
+          key={number}
+          onClick={() => onPageChange(number)}
+          className={`mx-1 py-2 px-4 rounded ${
+            currentPage === number ? "bg-blue-500 text-white" : "bg-gray-300"
+          }`}
+        >
+          {number}
+        </button>
+      ))}
     </div>
   );
 }

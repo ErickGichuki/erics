@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import Products from "./Products";
 import FAQ from "../components/FAQ";
-import Rating from "./Rating";
 
 function Home() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -31,7 +30,6 @@ function Home() {
         </div>
         <Products searchQuery={searchQuery} />
         <FAQ />
-        <Rating />
       </div>
     </>
   );
